@@ -1,6 +1,6 @@
 package repository
 
-func (r *InMemoryUserRepository) DeleteUserById(id string) error {
+func (r *PostgresUserRepository) DeleteUserById(id string) error {
 
 	return nil
 }

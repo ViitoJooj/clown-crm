@@ -1,6 +1,9 @@
 package repository
 
-import "github.com/ViitoJooj/clown-crm/internal/domain"
+import (
+	"github.com/ViitoJooj/clown-crm/internal/domain"
+	"github.com/jackc/pgx/v5/pgxpool"
+)
 
 type UserRepository interface {
 	CreateUser(user *domain.User) error
@@ -11,12 +14,10 @@ type UserRepository interface {
 	DeleteUserById(id string) error
 }
 
-type InMemoryUserRepository struct {
-	users map[string]*domain.User
+type PostgresUserRepository struct {
+	db *pgxpool.Pool
 }
 
-func NewInMemoryUserRepository() UserRepository {
-	return &InMemoryUserRepository{
-		users: make(map[string]*domain.User),
-	}
+func NewPostgresUserRepository(db *pgxpool.Pool) UserRepository {
+	return &PostgresUserRepository{db: db}
 }
