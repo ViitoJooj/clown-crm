@@ -2,11 +2,12 @@ package database_test
 
 import (
 	"context"
-	"crm/pkg/database"
-	"crm/pkg/dotenv"
 	"fmt"
 	"testing"
 	"time"
+
+	"github.com/ViitoJooj/clown-crm/pkg/database"
+	"github.com/ViitoJooj/clown-crm/pkg/dotenv"
 )
 
 func TestConn(t *testing.T) {

@@ -1,6 +1,6 @@
 package repository
 
-import "crm/internal/domain"
+import "github.com/ViitoJooj/clown-crm/internal/domain"
 
 func (r *InMemoryUserRepository) CreateUser(user *domain.User) error {
 

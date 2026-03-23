@@ -1,6 +1,6 @@
 package repository
 
-import "crm/internal/domain"
+import "github.com/ViitoJooj/clown-crm/internal/domain"
 
 type UserRepository interface {
 	CreateUser(user *domain.User) error

@@ -1,9 +1,10 @@
 package domain_test
 
 import (
-	"crm/internal/domain"
 	"fmt"
 	"testing"
+
+	"github.com/ViitoJooj/clown-crm/internal/domain"
 )
 
 func TestNewUser(t *testing.T) {

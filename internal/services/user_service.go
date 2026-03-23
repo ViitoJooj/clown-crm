@@ -1,9 +1,10 @@
 package services
 
 import (
-	"crm/internal/domain"
-	"crm/internal/repository"
 	"errors"
+
+	"github.com/ViitoJooj/clown-crm/internal/domain"
+	"github.com/ViitoJooj/clown-crm/internal/repository"
 )
 
 type UserService struct {

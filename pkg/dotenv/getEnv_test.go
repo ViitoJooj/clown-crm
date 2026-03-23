@@ -1,8 +1,9 @@
 package dotenv_test
 
 import (
-	"crm/pkg/dotenv"
 	"testing"
+
+	"github.com/ViitoJooj/clown-crm/pkg/dotenv"
 )
 
 func TestGetEnv(t *testing.T) {

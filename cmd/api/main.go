@@ -1,8 +1,8 @@
 package main
 
 import (
-	"crm/pkg/database"
-	"crm/pkg/dotenv"
+	"github.com/ViitoJooj/clown-crm/pkg/database"
+	"github.com/ViitoJooj/clown-crm/pkg/dotenv"
 )
 
 func main() {

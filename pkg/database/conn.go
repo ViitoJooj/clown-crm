@@ -2,7 +2,8 @@ package database
 
 import (
 	"context"
-	"crm/pkg/dotenv"
+
+	"github.com/ViitoJooj/clown-crm/pkg/dotenv"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )
