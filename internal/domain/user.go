@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"time"
 
+	"github.com/ViitoJooj/clown-crm/pkg/cryptography"
 	"github.com/google/uuid"
 )
 
@@ -21,7 +22,7 @@ type User struct {
 func NewUser(first_name string, last_name string, email string, password string) (*User, error) {
 	uuid, err := uuid.NewV7()
 	if err != nil {
-		return nil, errors.New("Error on gen uuid: " + uuid.String())
+		return nil, errors.New("error on gen uuid: " + uuid.String())
 	}
 
 	if !nameIsValid(first_name) {
@@ -36,12 +37,21 @@ func NewUser(first_name string, last_name string, email string, password string)
 		return nil, errors.New("email is not valid")
 	}
 
+	if !passwordIsValid(password) {
+		return nil, errors.New("password is not valid")
+	}
+
+	hashPassword, err := cryptography.HashPassword(password)
+	if err != nil {
+		return nil, errors.New("error on hash password")
+	}
+
 	user := User{
 		UUID:       uuid.String(),
 		First_Name: first_name,
 		Last_Name:  last_name,
 		Email:      email,
-		Password:   password,
+		Password:   hashPassword,
 		Updated_at: time.Now(),
 		Created_at: time.Now(),
 	}
@@ -71,6 +81,14 @@ func emailIsValid(email string) bool {
 	}
 
 	if len(email) > 100 || len(email) < 3 {
+		return false
+	}
+
+	return true
+}
+
+func passwordIsValid(password string) bool {
+	if len(password) > 100 || len(password) < 6 {
 		return false
 	}
 
