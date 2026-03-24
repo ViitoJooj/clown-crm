@@ -26,5 +26,18 @@ func (s *UserService) CreateUser(user *domain.User) error {
 		return errors.New("Invalid credentials")
 	}
 
+	user, err = domain.NewUser(user.First_Name, user.Last_Name, user.Email, user.Password)
+	if err != nil {
+		return err
+	}
+
 	return s.repo.CreateUser(user)
+}
+
+func (s *UserService) ViewUser(user *domain.User) (*domain.User, error) {
+	return s.repo.FindUserByID(user.UUID)
+}
+
+func (s *UserService) DeleteUser(user *domain.User) error {
+	return s.repo.DeleteUserById(user.UUID)
 }
