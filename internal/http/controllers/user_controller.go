@@ -44,9 +44,14 @@ func (c *UserController) Register(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusCreated, gin.H{
-		"id":         createdUser.UUID,
-		"first_name": createdUser.First_Name,
-		"email":      createdUser.Email,
-	})
+	output := dtos.OutputUserDTO{
+		UUID:       createdUser.UUID,
+		First_Name: createdUser.First_Name,
+		Last_Name:  createdUser.Last_Name,
+		Email:      createdUser.Email,
+		Updated_at: createdUser.Updated_at.String(),
+		Created_at: createdUser.Created_at.String(),
+	}
+
+	ctx.JSON(http.StatusCreated, output)
 }
