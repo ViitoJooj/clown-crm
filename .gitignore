@@ -1,2 +1,11 @@
 .env
 */.env
+
+*/target
+target
+
+.DS_Store
+*/DS_Store
+
+*.rs.bk
+**/*.rs.bk
