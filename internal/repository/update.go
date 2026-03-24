@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"errors"
+	"log"
 
 	"github.com/ViitoJooj/clown-crm/internal/domain"
 )
@@ -26,6 +27,7 @@ func (r *PostgresUserRepository) UpdateUser(user *domain.User) error {
 	)
 
 	if err != nil {
+		log.Println(err)
 		return errors.New("internal error")
 	}
 

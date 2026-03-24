@@ -14,7 +14,7 @@ func GetEnv() {
 	godotenv.Load("../../.env")
 	godotenv.Load("../../../.env")
 
-	PgUrl = os.Getenv("POSTGRE_URL")
+	PgUrl = os.Getenv("POSTGRES_URL")
 	if PgUrl == "" {
 		panic("PgUrl is null")
 	}

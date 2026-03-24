@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"errors"
+	"log"
 )
 
 func (r *PostgresUserRepository) DeleteUserById(id string) error {
@@ -12,6 +13,7 @@ func (r *PostgresUserRepository) DeleteUserById(id string) error {
 		id,
 	)
 	if err != nil {
+		log.Println(err)
 		return errors.New("internal error")
 	}
 

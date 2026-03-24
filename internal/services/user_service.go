@@ -2,6 +2,7 @@ package services
 
 import (
 	"errors"
+	"log"
 
 	"github.com/ViitoJooj/clown-crm/internal/domain"
 	"github.com/ViitoJooj/clown-crm/internal/repository"
@@ -20,10 +21,12 @@ func NewUserService(repo repository.UserRepository) *UserService {
 func (s *UserService) CreateUser(user *domain.User) (*domain.User, error) {
 	existing, err := s.repo.FindUserByEmail(user.Email)
 	if err != nil {
+		log.Println(err)
 		return nil, errors.New("internal error")
 	}
 	if existing != nil {
-		return nil, errors.New("user already exists")
+		log.Println("User already exists")
+		return nil, errors.New("invalid credentials")
 	}
 
 	newUser, err := domain.NewUser(
