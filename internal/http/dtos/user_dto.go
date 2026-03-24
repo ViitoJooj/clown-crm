@@ -15,3 +15,9 @@ type OutputUserDTO struct {
 	Updated_at string `json:"updated_at"`
 	Created_at string `json:"created_at"`
 }
+
+type RegisterOutput struct {
+	Sucess  bool          `json:"succes"`
+	Message string        `json:"message"`
+	User    OutputUserDTO `json:"user"`
+}
