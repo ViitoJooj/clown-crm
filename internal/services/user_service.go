@@ -17,21 +17,30 @@ func NewUserService(repo repository.UserRepository) *UserService {
 	}
 }
 
-func (s *UserService) CreateUser(user *domain.User) error {
-	existing, err := s.repo.FindUserByID(user.Email)
+func (s *UserService) CreateUser(user *domain.User) (*domain.User, error) {
+	existing, err := s.repo.FindUserByEmail(user.Email)
 	if err != nil {
-		return errors.New("Internal error")
+		return nil, errors.New("internal error")
 	}
 	if existing != nil {
-		return errors.New("Invalid credentials")
+		return nil, errors.New("user already exists")
 	}
 
-	user, err = domain.NewUser(user.First_Name, user.Last_Name, user.Email, user.Password)
+	newUser, err := domain.NewUser(
+		user.First_Name,
+		user.Last_Name,
+		user.Email,
+		user.Password,
+	)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return s.repo.CreateUser(user)
+	if err := s.repo.CreateUser(newUser); err != nil {
+		return nil, err
+	}
+
+	return newUser, nil
 }
 
 func (s *UserService) ViewUser(user *domain.User) (*domain.User, error) {
