@@ -52,6 +52,7 @@ func (c *UserController) Register(ctx *gin.Context) {
 			First_Name: createdUser.First_Name,
 			Last_Name:  createdUser.Last_Name,
 			Email:      createdUser.Email,
+			Role:       createdUser.Role,
 			Updated_at: createdUser.Updated_at.String(),
 			Created_at: createdUser.Created_at.String(),
 		},

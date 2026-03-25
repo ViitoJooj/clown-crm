@@ -12,6 +12,7 @@ type OutputUserDTO struct {
 	First_Name string `json:"first_name"`
 	Last_Name  string `json:"last_name"`
 	Email      string `json:"email"`
+	Role       string `json:"role"`
 	Updated_at string `json:"updated_at"`
 	Created_at string `json:"created_at"`
 }

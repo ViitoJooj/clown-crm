@@ -15,6 +15,7 @@ type User struct {
 	Last_Name  string
 	Email      string
 	Password   string
+	Role       string
 	Updated_at time.Time
 	Created_at time.Time
 }
@@ -52,6 +53,7 @@ func NewUser(first_name string, last_name string, email string, password string)
 		Last_Name:  last_name,
 		Email:      email,
 		Password:   hashPassword,
+		Role:       "user",
 		Updated_at: time.Now(),
 		Created_at: time.Now(),
 	}
