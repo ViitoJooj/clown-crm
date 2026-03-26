@@ -47,7 +47,7 @@ func (r *PostgresUserRepository) FindUserByID(uuid string) (*domain.User, error)
 	var user domain.User
 
 	row := r.db.QueryRow(context.Background(),
-		`SELECT uuid, first_name, last_name, email, updated_at, created_at FROM users WHERE uuid = $1`,
+		`SELECT uuid, first_name, last_name, email, password, updated_at, created_at FROM users WHERE uuid = $1`,
 		uuid,
 	)
 
@@ -56,6 +56,7 @@ func (r *PostgresUserRepository) FindUserByID(uuid string) (*domain.User, error)
 		&user.First_Name,
 		&user.Last_Name,
 		&user.Email,
+		&user.Password,
 		&user.Updated_at,
 		&user.Created_at,
 	)
@@ -74,7 +75,7 @@ func (r *PostgresUserRepository) FindUserByEmail(email string) (*domain.User, er
 	var user domain.User
 
 	row := r.db.QueryRow(context.Background(),
-		`SELECT uuid, first_name, last_name, email, updated_at, created_at FROM users WHERE email = $1`,
+		`SELECT uuid, first_name, last_name, email, password, updated_at, created_at FROM users WHERE email = $1`,
 		email,
 	)
 
@@ -83,6 +84,7 @@ func (r *PostgresUserRepository) FindUserByEmail(email string) (*domain.User, er
 		&user.First_Name,
 		&user.Last_Name,
 		&user.Email,
+		&user.Password,
 		&user.Updated_at,
 		&user.Created_at,
 	)

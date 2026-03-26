@@ -20,7 +20,7 @@ func NewUserController(service *services.UserService) *UserController {
 }
 
 func (c *UserController) Register(ctx *gin.Context) {
-	var input dtos.InputUserDTO
+	var input dtos.InputRegisterDTO
 
 	if err := ctx.ShouldBindJSON(&input); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -36,7 +36,7 @@ func (c *UserController) Register(ctx *gin.Context) {
 		Password:   input.Password,
 	}
 
-	createdUser, err := c.service.CreateUser(user)
+	createdUser, err := c.service.Register(user)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
@@ -45,7 +45,7 @@ func (c *UserController) Register(ctx *gin.Context) {
 	}
 
 	output := dtos.RegisterOutput{
-		Sucess:  true,
+		Success: true,
 		Message: "User created.",
 		User: dtos.OutputUserDTO{
 			UUID:       createdUser.UUID,
@@ -59,4 +59,71 @@ func (c *UserController) Register(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusCreated, output)
+}
+
+func (c *UserController) Login(ctx *gin.Context) {
+	var input dtos.InputLoginDTO
+
+	if err := ctx.ShouldBindJSON(&input); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	user, token, err := c.service.Login(input.Email, input.Password)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	output := dtos.LoginOutput{
+		Success: true,
+		Message: "Login successful.",
+		User: dtos.OutputUserDTO{
+			UUID:       user.UUID,
+			First_Name: user.First_Name,
+			Last_Name:  user.Last_Name,
+			Email:      user.Email,
+			Role:       user.Role,
+			Updated_at: user.Updated_at.String(),
+			Created_at: user.Created_at.String(),
+		},
+		Token: token,
+	}
+
+	ctx.JSON(http.StatusOK, output)
+}
+
+func (c *UserController) AccessToken(ctx *gin.Context) {
+	tokenString, err := ctx.Cookie("token")
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{
+			"error": "Token not found",
+		})
+		return
+	}
+
+	_, err = c.service.AccessToken(tokenString)
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"message": "Token is valid",
+	})
+}
+
+func (c *UserController) Logout(ctx *gin.Context) {
+	ctx.SetCookie("token", "", -1, "/", "localhost", false, true)
+	ctx.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"message": "Logout successful",
+	})
 }
