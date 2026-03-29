@@ -9,3 +9,6 @@ target
 
 *.rs.bk
 **/*.rs.bk
+
+test.html
+*/test.html

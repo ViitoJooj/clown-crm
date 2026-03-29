@@ -21,3 +21,16 @@ type PostgresUserRepository struct {
 func NewPostgresUserRepository(db *pgxpool.Pool) UserRepository {
 	return &PostgresUserRepository{db: db}
 }
+
+type ChatRepository interface {
+	SaveMessage(msg domain.Chat) error
+	ListMessages(userA, userB string) ([]domain.Chat, error)
+}
+
+type PostgresChatRepository struct {
+	db *pgxpool.Pool
+}
+
+func NewPostgresChatRepository(db *pgxpool.Pool) ChatRepository {
+	return &PostgresChatRepository{db: db}
+}

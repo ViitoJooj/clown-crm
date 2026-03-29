@@ -98,3 +98,40 @@ func (r *PostgresUserRepository) FindUserByEmail(email string) (*domain.User, er
 
 	return &user, nil
 }
+
+func (r *PostgresChatRepository) ListMessages(userA, userB string) ([]domain.Chat, error) {
+	rows, err := r.db.Query(context.Background(),
+		`SELECT sender, receiver, message, created_at
+		 FROM messages
+		 WHERE (sender = $1 AND receiver = $2)
+		    OR (sender = $2 AND receiver = $1)
+		 ORDER BY created_at ASC`,
+		userA, userB,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var messages []domain.Chat
+
+	for rows.Next() {
+		var msg domain.Chat
+
+		err := rows.Scan(
+			&msg.From,
+			&msg.To,
+			&msg.Message,
+			&msg.Time,
+		)
+
+		if err != nil {
+			return nil, err
+		}
+
+		messages = append(messages, msg)
+	}
+
+	return messages, nil
+}

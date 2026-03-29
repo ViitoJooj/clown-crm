@@ -3,9 +3,11 @@ module github.com/ViitoJooj/clown-crm
 go 1.25.6
 
 require (
+	github.com/gin-contrib/cors v1.7.6
 	github.com/gin-gonic/gin v1.12.0
 	github.com/golang-jwt/jwt/v4 v4.5.2
 	github.com/google/uuid v1.6.0
+	github.com/gorilla/websocket v1.5.3
 	github.com/jackc/pgx/v5 v5.9.1
 	github.com/joho/godotenv v1.5.1
 	golang.org/x/crypto v0.49.0

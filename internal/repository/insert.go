@@ -21,3 +21,16 @@ func (r *PostgresUserRepository) CreateUser(user *domain.User) error {
 
 	return err
 }
+
+func (r *PostgresChatRepository) SaveMessage(msg domain.Chat) error {
+	_, err := r.db.Exec(context.Background(),
+		`INSERT INTO messages (sender, receiver, message, created_at)
+		 VALUES ($1, $2, $3, $4)`,
+		msg.From,
+		msg.To,
+		msg.Message,
+		msg.Time,
+	)
+
+	return err
+}

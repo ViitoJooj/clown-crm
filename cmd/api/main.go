@@ -17,6 +17,10 @@ func main() {
 	userService := services.NewUserService(userRepo)
 	userController := controllers.NewUserController(userService)
 
-	r := httpx.SetupRouter(userController)
+	chatRepo := repository.NewPostgresChatRepository(database.DB)
+	chatHub := services.NewChatHub(chatRepo)
+	chatController := controllers.NewChatController(chatHub)
+
+	r := httpx.SetupRouter(userController, chatController)
 	r.Run(":8080")
 }
