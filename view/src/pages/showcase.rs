@@ -1,8 +1,9 @@
 // Exemplo de uso do sistema de temas e novos componentes
 
-use dioxus::prelude::*;
+use crate::components::common::Icon;
 use crate::components::*;
 use crate::styles::theme::ThemeVariant;
+use dioxus::prelude::*;
 
 /// Página de demonstração dos componentes e temas
 #[component]
@@ -12,7 +13,7 @@ pub fn ComponentShowcase() -> Element {
     rsx! {
         div {
             style: "min-height: 100vh; padding: 40px; background: linear-gradient(180deg, #0A0A0A 0%, #1A0505 100%);",
-            
+
             // Header with theme selector
             div {
                 style: "display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;",
@@ -84,23 +85,43 @@ pub fn ComponentShowcase() -> Element {
                         style: "display: flex; flex-wrap: wrap; gap: 10px;",
                         Badge {
                             variant: "success".to_string(),
-                            "✓ Success"
+                            div {
+                                style: "display: flex; align-items: center; gap: 4px;",
+                                Icon { name: "check".to_string(), size: "14".to_string() }
+                                "Success"
+                            }
                         }
                         Badge {
                             variant: "error".to_string(),
-                            "✗ Error"
+                            div {
+                                style: "display: flex; align-items: center; gap: 4px;",
+                                Icon { name: "x".to_string(), size: "14".to_string() }
+                                "Error"
+                            }
                         }
                         Badge {
                             variant: "warning".to_string(),
-                            "⚠ Warning"
+                            div {
+                                style: "display: flex; align-items: center; gap: 4px;",
+                                Icon { name: "alert-triangle".to_string(), size: "14".to_string() }
+                                "Warning"
+                            }
                         }
                         Badge {
                             variant: "info".to_string(),
-                            "ℹ Info"
+                            div {
+                                style: "display: flex; align-items: center; gap: 4px;",
+                                Icon { name: "info".to_string(), size: "14".to_string() }
+                                "Info"
+                            }
                         }
                         Badge {
                             variant: "primary".to_string(),
-                            "★ Primary"
+                            div {
+                                style: "display: flex; align-items: center; gap: 4px;",
+                                Icon { name: "star".to_string(), size: "14".to_string() }
+                                "Primary"
+                            }
                         }
                         Badge {
                             variant: "default".to_string(),

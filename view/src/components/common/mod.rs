@@ -1,7 +1,10 @@
 use dioxus::prelude::*;
 
 pub mod app_layout;
+pub mod icon;
+
 pub use app_layout::AppLayout;
+pub use icon::Icon;
 
 #[component]
 pub fn Button(

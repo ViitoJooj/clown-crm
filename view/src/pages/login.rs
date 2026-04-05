@@ -111,10 +111,7 @@ pub fn LoginPage(
                         if !error.read().is_empty() {
                             div {
                                 style: "background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.1)); backdrop-filter: blur(10px); border: 1px solid rgba(239, 68, 68, 0.3); color: #FF6B6B; padding: 14px 16px; border-radius: 12px; font-size: 14px; display: flex; align-items: center; gap: 10px; animation: slideInRight 0.3s ease;",
-                                span {
-                                    style: "font-size: 18px;",
-                                    "⚠️"
-                                }
+                                Icon { name: "alert-triangle".to_string(), size: "18".to_string(), color: "#FF6B6B".to_string() }
                                 span {
                                     "{error}"
                                 }
@@ -173,7 +170,7 @@ pub fn LoginPage(
                             } else {
                                 div {
                                     style: "display: flex; align-items: center; gap: 10px;",
-                                    span { "🔐" }
+                                    Icon { name: "log-out".to_string(), size: "18".to_string() }
                                     span { "Login" }
                                 }
                             }

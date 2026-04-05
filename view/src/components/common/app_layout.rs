@@ -1,4 +1,5 @@
 use dioxus::prelude::*;
+use crate::components::common::Icon;
 use crate::models::{User, Message};
 use crate::utils::storage;
 use crate::utils::api_client::ApiClient;
@@ -55,17 +56,18 @@ pub fn AppLayout(user: User, auth_signal: Signal<AuthState>) -> Element {
                 div {
                     style: "padding: 12px 16px; background-color: #1A1A1A; border-bottom: 1px solid #2A2A2A; display: flex; justify-content: space-between; align-items: center; position: relative;",
                     h1 {
-                        style: "color: #8B0E0E; margin: 0; font-size: 24px; font-weight: bold;",
-                        "💬 Clown CRM"
+                        style: "color: #8B0E0E; margin: 0; font-size: 24px; font-weight: bold; display: flex; align-items: center; gap: 8px;",
+                        Icon { name: "message-square".to_string(), size: "20".to_string(), color: "#8B0E0E".to_string() }
+                        "Clown CRM"
                     }
                     div {
                         style: "position: relative;",
                         button {
-                            style: "background: none; border: none; color: #8B0E0E; cursor: pointer; font-size: 20px; padding: 8px; border-radius: 50%; hover:background-color: #2A2A2A;",
+                            style: "background: none; border: none; color: #8B0E0E; cursor: pointer; font-size: 20px; padding: 8px; border-radius: 50%; hover:background-color: #2A2A2A; display: flex; align-items: center; justify-content: center;",
                             onclick: move |_| {
                                 show_menu.toggle();
                             },
-                            "⋮"
+                            Icon { name: "more-vertical".to_string(), size: "20".to_string(), color: "#8B0E0E".to_string() }
                         }
                         
                         if show_menu() {
@@ -73,33 +75,36 @@ pub fn AppLayout(user: User, auth_signal: Signal<AuthState>) -> Element {
                                 style: "position: absolute; top: 100%; right: 0; background-color: #2A2A2A; border: 1px solid #3A3A3A; border-radius: 8px; min-width: 150px; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.5);",
                                 
                                 button {
-                                    style: "display: block; width: 100%; text-align: left; padding: 12px 16px; background: none; border: none; color: #FFFFFF; cursor: pointer; hover:background-color: #3A3A3A; border-bottom: 1px solid #3A3A3A; font-size: 14px;",
+                                    style: "display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 12px 16px; background: none; border: none; color: #FFFFFF; cursor: pointer; hover:background-color: #3A3A3A; border-bottom: 1px solid #3A3A3A; font-size: 14px;",
                                     onclick: move |_| {
                                         show_profile_edit.toggle();
                                         show_menu.set(false);
                                     },
-                                    "✏️ Edit Profile"
+                                    Icon { name: "edit".to_string(), size: "16".to_string() }
+                                    "Edit Profile"
                                 }
                                 
                                 if current_user_state.read().is_admin() {
                                     button {
-                                        style: "display: block; width: 100%; text-align: left; padding: 12px 16px; background: none; border: none; color: #FFFFFF; cursor: pointer; hover:background-color: #3A3A3A; border-bottom: 1px solid #3A3A3A; font-size: 14px;",
+                                        style: "display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 12px 16px; background: none; border: none; color: #FFFFFF; cursor: pointer; hover:background-color: #3A3A3A; border-bottom: 1px solid #3A3A3A; font-size: 14px;",
                                         onclick: move |_| {
                                             show_create_account.set(true);
                                             show_menu.set(false);
                                         },
-                                        "➕ Create Account"
+                                        Icon { name: "plus".to_string(), size: "16".to_string() }
+                                        "Create Account"
                                     }
                                 }
                                 
                                 button {
-                                    style: "display: block; width: 100%; text-align: left; padding: 12px 16px; background: none; border: none; color: #FFFFFF; cursor: pointer; hover:background-color: #3A3A3A; font-size: 14px;",
+                                    style: "display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 12px 16px; background: none; border: none; color: #FFFFFF; cursor: pointer; hover:background-color: #3A3A3A; font-size: 14px;",
                                     onclick: move |_| {
                                         storage::clear_token();
                                         storage::clear_all();
                                         auth_signal.set(AuthState::Unauthenticated);
                                     },
-                                    "🚪 Logout"
+                                    Icon { name: "log-out".to_string(), size: "16".to_string() }
+                                    "Logout"
                                 }
                             }
                         }
@@ -151,8 +156,8 @@ pub fn AppLayout(user: User, auth_signal: Signal<AuthState>) -> Element {
                         style: "flex: 1; padding: 8px 12px; border-radius: 20px; border: none; background-color: #2A2A2A; color: #FFFFFF; font-size: 14px;",
                     }
                     button {
-                        style: "background: none; border: none; color: #8B0E0E; cursor: pointer; font-size: 18px; padding: 4px 8px;",
-                        "➕"
+                        style: "background: none; border: none; color: #8B0E0E; cursor: pointer; font-size: 18px; padding: 4px 8px; display: flex; align-items: center; justify-content: center;",
+                        Icon { name: "plus".to_string(), size: "20".to_string(), color: "#8B0E0E".to_string() }
                     }
                 }
                 
@@ -230,12 +235,14 @@ pub fn AppLayout(user: User, auth_signal: Signal<AuthState>) -> Element {
                                 div {
                                     style: "display: flex; gap: 8px;",
                                     button {
-                                        style: "background: none; border: none; color: #8B0E0E; cursor: pointer; font-size: 14px; padding: 8px 12px; border-radius: 4px;",
-                                        "📞 Call"
+                                        style: "display: flex; align-items: center; gap: 6px; background: none; border: none; color: #8B0E0E; cursor: pointer; font-size: 14px; padding: 8px 12px; border-radius: 4px;",
+                                        Icon { name: "phone".to_string(), size: "16".to_string(), color: "#8B0E0E".to_string() }
+                                        "Call"
                                     }
                                     button {
-                                        style: "background: none; border: none; color: #8B0E0E; cursor: pointer; font-size: 14px; padding: 8px 12px; border-radius: 4px;",
-                                        "🖥️ Share"
+                                        style: "display: flex; align-items: center; gap: 6px; background: none; border: none; color: #8B0E0E; cursor: pointer; font-size: 14px; padding: 8px 12px; border-radius: 4px;",
+                                        Icon { name: "send".to_string(), size: "16".to_string(), color: "#8B0E0E".to_string() }
+                                        "Share"
                                     }
                                 }
                             }

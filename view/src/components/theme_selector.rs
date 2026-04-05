@@ -1,25 +1,24 @@
-use dioxus::prelude::*;
+use crate::components::common::Icon;
 use crate::styles::theme::ThemeVariant;
+use dioxus::prelude::*;
 
 #[component]
-pub fn ThemeSelector(
-    current_theme: Signal<ThemeVariant>,
-) -> Element {
+pub fn ThemeSelector(current_theme: Signal<ThemeVariant>) -> Element {
     let mut show_selector = use_signal(|| false);
 
     let themes = vec![
-        (ThemeVariant::Burgundy, "🍷", "Burgundy", "#8B0E0E"),
-        (ThemeVariant::DarkPurple, "💜", "Purple", "#7C3AED"),
-        (ThemeVariant::OceanBlue, "🌊", "Ocean", "#0EA5E9"),
-        (ThemeVariant::ForestGreen, "🌲", "Forest", "#10B981"),
-        (ThemeVariant::SunsetOrange, "🌅", "Sunset", "#F97316"),
-        (ThemeVariant::MidnightBlue, "🌙", "Midnight", "#3B82F6"),
+        (ThemeVariant::Burgundy, "palette", "Burgundy", "#8B0E0E"),
+        (ThemeVariant::DarkPurple, "palette", "Purple", "#7C3AED"),
+        (ThemeVariant::OceanBlue, "palette", "Ocean", "#0EA5E9"),
+        (ThemeVariant::ForestGreen, "palette", "Forest", "#10B981"),
+        (ThemeVariant::SunsetOrange, "palette", "Sunset", "#F97316"),
+        (ThemeVariant::MidnightBlue, "palette", "Midnight", "#3B82F6"),
     ];
 
     rsx! {
         div {
             style: "position: relative;",
-            
+
             // Theme button
             button {
                 style: r#"
@@ -41,7 +40,7 @@ pub fn ThemeSelector(
                 onclick: move |_| {
                     show_selector.toggle();
                 },
-                "🎨"
+                Icon { name: "palette".to_string(), size: "20".to_string(), color: "white".to_string() }
             }
 
             // Theme selector dropdown
@@ -62,7 +61,7 @@ pub fn ThemeSelector(
                         box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
                         animation: scaleIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
                     "#,
-                    
+
                     div {
                         style: "margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #B0B0B0;",
                         "Choose Theme"
@@ -70,8 +69,8 @@ pub fn ThemeSelector(
 
                     div {
                         style: "display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;",
-                        
-                        for (variant, emoji, name, color) in themes {
+
+                        for (variant, icon_name, name, color) in themes {
                             {
                                 let is_current = current_theme() == variant;
                                 let border_style = if is_current {
@@ -79,7 +78,7 @@ pub fn ThemeSelector(
                                 } else {
                                     "border: 1px solid rgba(58, 58, 58, 0.5);".to_string()
                                 };
-                                
+
                                 rsx! {
                                     button {
                                         key: "{name}",
@@ -102,10 +101,10 @@ pub fn ThemeSelector(
                                             current_theme.set(variant);
                                             show_selector.set(false);
                                         },
-                                        
+
                                         div {
-                                            style: "font-size: 24px;",
-                                            "{emoji}"
+                                            style: "display: flex; align-items: center; justify-content: center;",
+                                            Icon { name: icon_name.to_string(), size: "24".to_string(), color: color.to_string() }
                                         }
                                         div {
                                             style: "font-size: 12px; font-weight: 600;",
@@ -114,11 +113,11 @@ pub fn ThemeSelector(
                                         div {
                                             style: format!("width: 32px; height: 4px; border-radius: 2px; background: {};", color),
                                         }
-                                        
+
                                         if is_current {
                                             div {
-                                                style: "position: absolute; top: 4px; right: 4px; font-size: 12px;",
-                                                "✓"
+                                                style: "position: absolute; top: 4px; right: 4px;",
+                                                Icon { name: "check".to_string(), size: "14".to_string(), color: color.to_string() }
                                             }
                                         }
                                     }

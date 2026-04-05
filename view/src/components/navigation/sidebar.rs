@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
 use crate::models::User;
 use crate::components::chat::ChatListItem;
+use crate::components::common::Icon;
 
 #[component]
 pub fn Sidebar(user: User) -> Element {
@@ -62,15 +63,15 @@ pub fn Sidebar(user: User) -> Element {
             div {
                 style: header_style,
                 h1 {
-                    style: "color: #8B0E0E; margin: 0; font-size: 28px; font-weight: bold;",
-                    "💬"
+                    style: "color: #8B0E0E; margin: 0; font-size: 28px; font-weight: bold; display: flex; align-items: center;",
+                    Icon { name: "message-square".to_string(), size: "28".to_string(), color: "#8B0E0E".to_string() }
                 }
                 div {
                     style: "display: flex; gap: 8px;",
                     button {
-                        style: "background: none; border: none; color: #8B0E0E; cursor: pointer; font-size: 18px; padding: 8px; border-radius: 50%; transition: all 0.2s ease;",
+                        style: "background: none; border: none; color: #8B0E0E; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s ease; display: flex; align-items: center;",
                         onclick: move |_| show_logout_menu.toggle(),
-                        "⋮"
+                        Icon { name: "more-vertical".to_string(), size: "20".to_string(), color: "#8B0E0E".to_string() }
                     }
                 }
             }
@@ -109,12 +110,13 @@ pub fn Sidebar(user: User) -> Element {
                 div {
                     style: "position: fixed; top: 60px; right: 10px; background-color: #2A2A2A; border: 1px solid #3A3A3A; border-radius: 8px; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.5);",
                     button {
-                        style: "width: 200px; padding: 12px 16px; background: none; border: none; color: #FFFFFF; cursor: pointer; text-align: left; font-size: 14px; transition: all 0.2s ease;",
+                        style: "width: 200px; padding: 12px 16px; background: none; border: none; color: #FFFFFF; cursor: pointer; text-align: left; font-size: 14px; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px;",
                         onclick: move |_| {
                             // TODO: Implement logout
                             println!("Logout clicked");
                         },
-                        "🚪 Logout"
+                        Icon { name: "log-out".to_string(), size: "16".to_string() }
+                        "Logout"
                     }
                 }
             }
@@ -122,12 +124,19 @@ pub fn Sidebar(user: User) -> Element {
             // Search
             div {
                 style: search_container_style,
-                input {
-                    r#type: "text",
-                    placeholder: "🔍 Search chats...",
-                    value: search_query.read().to_string(),
-                    onchange: move |e: FormEvent| search_query.set(e.value()),
-                    style: search_input_style,
+                div {
+                    style: "position: relative;",
+                    div {
+                        style: "position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none;",
+                        Icon { name: "search".to_string(), size: "16".to_string(), color: "#666".to_string() }
+                    }
+                    input {
+                        r#type: "text",
+                        placeholder: "Search chats...",
+                        value: search_query.read().to_string(),
+                        onchange: move |e: FormEvent| search_query.set(e.value()),
+                        style: "{search_input_style} padding-left: 40px;",
+                    }
                 }
             }
 

@@ -1,14 +1,64 @@
+# Environment
 .env
 */.env
+.env.*
+!.env.example
 
+# Build artifacts
 */target
 target
+*/dist
+dist
+*/build
+build
 
+# OS files
 .DS_Store
 */DS_Store
+Thumbs.db
 
+# Rust
 *.rs.bk
 **/*.rs.bk
+Cargo.lock
 
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+/bin
+/pkg
+
+# Logs
+*.log
+**/*.log
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary/AI-generated docs
+**/GUIA_*.md
+**/RESUMO_*.md
+**/IMPLEMENTATION*.md
+**/ARCHITECTURE*.md
+**/PLAN*.md
+**/TODO*.md
+**/ANTES_DEPOIS*.md
+**/*_COMPLETA.md
+
+# Test files
 test.html
 */test.html
+*_test_*
+
+# Dependencies
+node_modules/
+vendor/
